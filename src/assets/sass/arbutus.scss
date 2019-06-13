@@ -1,0 +1,52 @@
+h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+}
+input[type="submit"], input[type="reset"], input[type="button"], 
+input[type="submit"].primary, input[type="reset"].primary, input[type="button"].primary,
+    button, .button, button.primary, .button.primary {
+    border-radius: 0;
+    background-color: #9b534e;
+}
+
+input[type="submit"].primary:hover, input[type="reset"].primary:hover, input[type="button"].primary:hover, button.primary:hover, .button.primary:hover {
+    background-color: #c0655f;
+}
+
+input[type="text"], input[type="password"], input[type="email"], 
+    input[type="tel"], input[type="search"], input[type="url"], 
+    select, textarea {
+    border-radius: 0;
+}
+#wrapper {
+    &:before {
+        background-image: none;
+        background-color: #9b534e;
+    }
+}
+
+#wrapper {
+    section {
+        > header {
+            background-image: none;
+            background-color: #9b534e;
+            &:before {
+                background: #c0655f;
+            }
+            h1, h2 {
+                &:before, &:after {
+                    background: #c0655f;
+                }
+            }
+            p {
+                color: #fff;
+            }
+        }
+        &:last-of-type {
+            > header {
+                &:after {
+                    background: #c0655f;
+                }
+            }
+        }
+    }
+}
