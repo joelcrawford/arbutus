@@ -1,5 +1,5 @@
 import React from 'react'
-import './assets/sass/contact.scss'
+import './assets/sass/arbutus/contact.scss'
 export default () => {
     return (
 <section>

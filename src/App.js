@@ -1,6 +1,6 @@
 import React from 'react'
 import './assets/sass/main.scss'
-
+import './assets/sass/arbutus/arbutus.scss'
 
 import Home from './Home'
 import Page from './Page'
@@ -10,7 +10,7 @@ import CTA from './CTA'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import './assets/sass/arbutus.scss'
+
 
 function App() {
   return (

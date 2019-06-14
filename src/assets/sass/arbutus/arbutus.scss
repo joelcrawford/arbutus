@@ -1,15 +1,17 @@
+@import 'arbutus-vars.scss';
+
 h1, h2, h3, h4, h5, h6 {
-    color: #fff;
+    color: $c-text-headers;
 }
 input[type="submit"], input[type="reset"], input[type="button"], 
 input[type="submit"].primary, input[type="reset"].primary, input[type="button"].primary,
     button, .button, button.primary, .button.primary {
     border-radius: 0;
-    background-color: #9b534e;
+    background-color: $c-bg;
 }
 
 input[type="submit"].primary:hover, input[type="reset"].primary:hover, input[type="button"].primary:hover, button.primary:hover, .button.primary:hover {
-    background-color: #c0655f;
+    background-color: $c-bg-highlight;
 }
 
 input[type="text"], input[type="password"], input[type="email"], 
@@ -20,7 +22,7 @@ input[type="text"], input[type="password"], input[type="email"],
 #wrapper {
     &:before {
         background-image: none;
-        background-color: #9b534e;
+        background-color: $c-bg;
     }
 }
 
@@ -28,23 +30,26 @@ input[type="text"], input[type="password"], input[type="email"],
     section {
         > header {
             background-image: none;
-            background-color: #9b534e;
+            background-color: $c-bg;
             &:before {
-                background: #c0655f;
+                background: $c-bg-highlight;
             }
             h1, h2 {
-                &:before, &:after {
-                    background: #c0655f;
+                &:before {
+                    background: $c-bg-highlight;
+                }
+                &:after {
+                    background: $c-bg-highlight;
                 }
             }
             p {
-                color: #fff;
+                color: $c-text-headers;
             }
         }
         &:last-of-type {
             > header {
                 &:after {
-                    background: #c0655f;
+                    background: $c-bg-highlight;
                 }
             }
         }

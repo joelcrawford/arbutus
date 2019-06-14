@@ -1,7 +1,7 @@
 import React from 'react'
 import canadaMap from './assets/images/canada.png'
 
-import './assets/sass/tour.scss'
+import './assets/sass/arbutus/tour.scss'
 
 export default () => {
     return (
