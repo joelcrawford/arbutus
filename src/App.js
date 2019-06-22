@@ -3,31 +3,26 @@ import './assets/sass/main.scss'
 import './assets/sass/arbutus/arbutus.scss'
 
 import Home from './Home'
-import Page from './Page'
+import About from './About'
 import Tour from './Tour'
 import Gallery from './Gallery'
-import CTA from './CTA'
+import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
+export default() => {
+	return (
+		<div id="wrapper">
 
+			<Home anchor="home" />
 
-function App() {
-  return (
-    <div id="wrapper">
-		<Home />
-
-		<Page />
-		<Tour />
-		<CTA />
-		<Gallery />	
-
-		
-						
-		<Contact />
-		<Footer />
-	</div>
-  )
+			<About anchor="about" />
+			<Tour anchor="tour" />
+			<Listen anchor="listen" />
+			<Gallery anchor="gallery" />	
+			
+			<Contact anchor="contact" />
+			<Footer />
+		</div>
+  	)
 }
-
-export default App;

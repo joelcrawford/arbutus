@@ -21,7 +21,7 @@ input[type="text"], input[type="password"], input[type="email"],
 }
 #wrapper {
     &:before {
-        background-image: none;
+        background-image: none; /* url('../../images/rose_outline.svg'); */
         background-color: $c-bg;
     }
 }
@@ -43,7 +43,21 @@ input[type="text"], input[type="password"], input[type="email"],
                 }
             }
             p {
-                color: $c-text-headers;
+                color: $c-text-headers;          
+            }
+            a {
+                margin: 0 0 2em 0;
+            }
+            .header-text-grouping {
+                font-family: "Raleway", Helvetica, sans-serif;
+                font-size: 0.8rem;
+                letter-spacing: 0.175em;
+                line-height: 1.5;
+                text-transform: uppercase;
+                li {
+                    list-style: none;
+                    margin: 0 0 2em 0;
+                }
             }
         }
         &:last-of-type {
@@ -54,4 +68,12 @@ input[type="text"], input[type="password"], input[type="email"],
             }
         }
     }
+}
+
+.the-rose {
+    position: fixed;
+    top: 100;
+    left: 0;
+    width: 50%;
+    opacity: 0.1;
 }

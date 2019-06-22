@@ -5,11 +5,11 @@ import full02 from './assets/images/gallery/fulls/02.jpg'
 import full03 from './assets/images/gallery/fulls/03.jpg'
 import full04 from './assets/images/gallery/fulls/04.jpg'
 
-export default () => {
+export default ({anchor}) => {
     return (
-        <section>
+        <section id={anchor}>
             <header>
-                <h3>Gallery</h3>
+                <h2>Gallery</h2>
                 <p>Maybe this could be 10 most recent images from Instagram feed?</p>
             </header>
             <div className="content">

@@ -3,9 +3,9 @@ import canadaMap from './assets/images/canada.png'
 
 import './assets/sass/arbutus/tour.scss'
 
-export default () => {
+export default ({anchor}) => {
     return (
-        <section>
+        <section id={anchor}>
             <header>
                 <h2 className="img-header">Tour stops on our way across Canada...</h2>
                 <span className="image main img-no-margin"><img src={canadaMap} alt="" /></span>
