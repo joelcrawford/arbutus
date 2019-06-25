@@ -11,7 +11,7 @@ import Contact from './Contact'
 import Footer from './Footer'
 
 import { Store } from '../store'
-import { fetchPagesAction, fetchPostsAction } from '../store/actions'
+import { fetchPagesAction } from '../store/actions'
 
 
 
@@ -20,8 +20,9 @@ export default() => {
 	const { state, dispatch } = React.useContext(Store)
 
 	React.useEffect(() => {
+		//console.log(state)
 		state.pages.length === 0 && fetchPagesAction(dispatch)
-		state.posts.length === 0 && fetchPostsAction(dispatch)
+		//state.posts.length === 0 && fetchPostsAction(dispatch)
 	})
 	
 	return (

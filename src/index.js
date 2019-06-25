@@ -2,17 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './assets/css/index.css'
-import App from './App'
+import App from './components/App'
 import * as serviceWorker from './serviceWorker'
+
+import { StoreProvider } from './store'
 
 const RoutedApp = () => {
     return (
-        <Router>
-            <Switch>
-                <Route exact path="/" component={App} />
-                <Route path="/:page" component={App} />
-            </Switch>
-        </Router>
+        <StoreProvider>
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={App} />
+                    <Route path="/:page" component={App} />
+                </Switch>
+            </Router>
+        </StoreProvider>
     )
 }
 
