@@ -13,7 +13,7 @@ const scrollWithOffset = (el, offset) => {
 
 export default ({data, menu}) => {
     if(!data) { return null }
-    const featuredImage = setImg(data)
+    const featuredImage = setImg(data, 'medium_large')
 
     return (
         <section id={data.slug} className="intro">

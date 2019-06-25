@@ -3,12 +3,15 @@ const wpRest = 'wp-json/wp/v2/'
 const wpPages = 'pages?_embed'
 const wpPosts = 'posts?_embed'
 
-export const setImg = (data) => {
-    let headerImage = null
+const imgSizes = ['full', 'small', 'medium', 'medium_large']
+
+export const setImg = (data, size) => {
+    let img = null
+    if(!imgSizes.includes(size)) { size = 'medium_large' }
     if(!!data._embedded['wp:featuredmedia'][0]) {
-        headerImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url
+        img = data._embedded['wp:featuredmedia'][0].media_details.sizes[size].source_url
     }
-    return headerImage
+    return img
 }
 
 const setUpMenu = async (data) => {

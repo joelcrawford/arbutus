@@ -27,7 +27,6 @@ export default() => {
 	
 	return (
 		<div id="wrapper">
-			{ console.log(state) }
 			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
 
 			<About data={state.pages.find(p => p.slug === 'about')} />

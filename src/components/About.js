@@ -4,7 +4,7 @@ import { setImg } from '../store/actions'
 export default ({data}) => {
     
     if(!data) { return null }
-    const featuredImage = setImg(data)
+    const featuredImage = setImg(data, 'medium')
 
     return (
             <section id={data.slug}>

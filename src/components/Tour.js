@@ -6,9 +6,8 @@ import '../assets/sass/arbutus/tour.scss'
 export default ({data, events}) => {
 
     if(!data || !events) { return null }
-    const featuredImage = setImg(data)
-    console.log('from tour', data, events)
-
+    const featuredImage = setImg(data, 'medium_large')
+    
     return (
         <section id={data.slug}>
             <header>
@@ -20,9 +19,21 @@ export default ({data, events}) => {
                 <ul className="feature-icons">
 
                     {events.map((p, i) => {
+
+                        const { 
+                            city, eventdate, address, 
+                            venue, title, subtitle } = p.acf
+
                         return (
                             <li key={i} className="icon solid fa-bolt">
-                                {p.acf.city}
+                                <div className="tour-details">
+                                    <h3>{city}</h3>
+                                    <p>{eventdate}</p>
+                                    <p>{address}</p>
+                                    <p>{venue}</p>
+                                    <p>{title}</p>
+                                    <p>{subtitle}</p>
+                                </div>
                             </li>
                         ) 
                     })}
