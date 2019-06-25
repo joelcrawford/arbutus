@@ -1,24 +1,32 @@
 import React from 'react'
-import canadaMap from '../assets/images/canada.png'
+import { setImg } from '../store/actions'
 
 import '../assets/sass/arbutus/tour.scss'
 
-export default ({anchor}) => {
+export default ({data, events}) => {
+
+    if(!data || !events) { return null }
+    const featuredImage = setImg(data)
+    console.log('from tour', data, events)
+
     return (
-        <section id={anchor}>
+        <section id={data.slug}>
             <header>
-                <h2 className="img-header">Tour stops on our way across Canada...</h2>
-                <span className="image main img-no-margin"><img src={canadaMap} alt="" /></span>
+                <h2 className="img-header">{data.acf.title}</h2>
+                <span className="image main img-no-margin"><img src={featuredImage} alt="" /></span>
             </header>
             <div className="content">
-                <p><strong>Book us</strong> if you want more stops!</p>
+                <p>{data.acf.subtitle}</p>
                 <ul className="feature-icons">
-                    <li className="icon solid fa-bolt">Montreal</li>
-                    <li className="icon solid fa-bolt">Toronto</li>
-                    <li className="icon solid fa-bolt">Winnipeg</li>
-                    <li className="icon solid fa-bolt">Saskatoon</li>
-                    <li className="icon solid fa-bolt">Edmonton</li>
-                    <li className="icon solid fa-bolt">Vancouver</li>
+
+                    {events.map((p, i) => {
+                        return (
+                            <li key={i} className="icon solid fa-bolt">
+                                {p.acf.city}
+                            </li>
+                        ) 
+                    })}
+
                 </ul>
                 <p></p>
             </div>

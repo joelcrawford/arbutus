@@ -5,6 +5,8 @@ import full02 from '../assets/images/gallery/fulls/02.jpg'
 import full03 from '../assets/images/gallery/fulls/03.jpg'
 import full04 from '../assets/images/gallery/fulls/04.jpg'
 
+import '../assets/sass/arbutus/gallery.scss'
+
 export default ({anchor}) => {
     return (
         <section id={anchor}>
@@ -14,7 +16,7 @@ export default ({anchor}) => {
             </header>
             <div className="content">
                 <div className="gallery">
-                    <div href="" className="landscape">
+                    <div className="landscape">
                         <img src={full01} alt="" />
                     </div>
                     <div>

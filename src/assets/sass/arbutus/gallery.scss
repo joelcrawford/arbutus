@@ -1,0 +1,24 @@
+.gallery {
+    div {
+        border-bottom: 0;
+        display: block;
+        margin: 1.25rem 0 0 1.25rem;
+        outline: 0;
+        position: relative;
+        width: calc(50% - 1.25rem);
+        img {
+            display: block;
+            height: 25vw;
+            min-height: 18rem;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+    }
+    .landscape {
+        width: 100%;
+        img {
+            height: 30vw;
+        }
+    }
+}

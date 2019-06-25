@@ -11,7 +11,7 @@ import Contact from './Contact'
 import Footer from './Footer'
 
 import { Store } from '../store'
-import { fetchPagesAction } from '../store/actions'
+import { fetchPages, fetchPosts } from '../store/actions'
 
 
 
@@ -21,17 +21,17 @@ export default() => {
 
 	React.useEffect(() => {
 		//console.log(state)
-		state.pages.length === 0 && fetchPagesAction(dispatch)
-		//state.posts.length === 0 && fetchPostsAction(dispatch)
+		state.pages.length === 0 && fetchPages(dispatch)
+		state.posts.length === 0 && fetchPosts(dispatch)
 	})
 	
 	return (
 		<div id="wrapper">
 			{ console.log(state) }
-			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} anchor="home" />
+			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
 
-			<About anchor="about" />
-			<Tour anchor="tour" />
+			<About data={state.pages.find(p => p.slug === 'about')} />
+			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
 			<Listen anchor="listen" />
 			<Gallery anchor="gallery" />	
 			

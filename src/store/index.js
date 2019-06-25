@@ -5,6 +5,7 @@ export const Store = React.createContext()
 
 const initialState = {
     pages: [], 
+    posts: [],
     menu: []
 }
 
@@ -17,4 +18,5 @@ export function StoreProvider(props) {
             {props.children}
         </Store.Provider>
     )
+    
   }
