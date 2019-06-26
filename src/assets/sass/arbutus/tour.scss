@@ -2,8 +2,65 @@
     margin: 0 0 1em 0;
 }
 
+ul.feature-icons li {
+    width: 100%;
+    &::before {
+        height: 2.25em;
+        line-height: 2.25em;
+        width: 2.25em;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 512 512'%3E%3Cpath d='M256,0l221.7,128v256L256,512L34.3,384V128L256,0z' fill='rgba(123, 65, 61, 0.3)' /%3E%3C/svg%3E");
+    }
+} 
+
+ul.feature-icons li:before
+
 .image.main.img-no-margin {
     display: block;
     margin: 0;
     width: 100%;
+}
+
+.tour-details {
+    border: 1px #222 dashed;
+    padding: 1em;
+    margin-bottom: 2em;
+    width: 100%;
+}
+.tour-city {
+    font-size: 1em;
+    margin: 0;
+}
+
+.tour-meta {
+    font-size: 0.8em;
+    margin: 0;
+    line-height: 0.8em;
+    font-family: 'Source Sans Pro';
+    background-color: #ffff00;
+    padding: 0.2em 0;
+}
+
+.show-map {
+    cursor: pointer;
+    padding: 0.2em;
+    background-color: none;
+    display: inline-block;
+    transition: background-color 300ms;
+    margin: 0.7em 0 0 0;
+    font-size: 0.8em;
+    margin: 0;
+    line-height: 0.8em;
+    font-family: 'Source Sans Pro';
+    &:hover {
+        background-color: #ffff00;
+       
+    }
+}
+.tour-venue {
+    font-family: 'Source Sans Pro';
+    font-style: italic;
+    letter-spacing: 0.1em;
+    font-size: 1em;
+    padding: 0;
+    background-color: none;
 }

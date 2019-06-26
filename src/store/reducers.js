@@ -9,3 +9,7 @@ export const reducer = (state, action) => {
             return state
     }
 }
+
+export const getPages = state => state.pages
+export const getPosts = state => state.posts
+export const getMenu = state => state.menu

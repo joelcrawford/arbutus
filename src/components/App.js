@@ -12,6 +12,7 @@ import Footer from './Footer'
 
 import { Store } from '../store'
 import { fetchPages, fetchPosts } from '../store/actions'
+import { getPages } from '../store/reducers'
 
 
 
@@ -24,7 +25,7 @@ export default() => {
 		state.pages.length === 0 && fetchPages(dispatch)
 		state.posts.length === 0 && fetchPosts(dispatch)
 	})
-	
+
 	return (
 		<div id="wrapper">
 			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
