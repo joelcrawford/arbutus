@@ -1,16 +1,6 @@
 import React from 'react'
 import '../assets/sass/arbutus/listen.scss'
 
-const data = {
-    anchor: 'listen',
-    title: 'Listen',
-    content: `<strong>Have a listen on Youtube</strong>`,
-    youTubeIDs: [
-        {id: 'e_q36_AZXos', title: 'The Game', desc: 'A little ditty about stuff and things...'},
-        {id: 'DZ15MeuGuYw', title: '5 Days in May', desc: 'Another ditty about 5 days that happened in the month of May...'}
-    ]
-}
-
 const YouTube = ({video, autoplay, rel, modest}) => {
     const videoSrc = "https://www.youtube.com/embed/" + 
         video + 
@@ -52,8 +42,7 @@ export default ({data, videos}) => {
                                     video={vid.acf.videoid}
                                     autoplay="0" rel="0" modest="1"
                                 />
-                            </div>
-                                
+                            </div>   
                         )
                     })}
             </div>

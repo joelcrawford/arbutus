@@ -7,12 +7,13 @@ import full04 from '../assets/images/gallery/fulls/04.jpg'
 
 import '../assets/sass/arbutus/gallery.scss'
 
-export default ({anchor}) => {
+export default ({data}) => {
+    if(!data) { return null }
     return (
-        <section id={anchor}>
+        <section id={data.slug}>
             <header>
-                <h2>Gallery</h2>
-                <p>Maybe this could be 10 most recent images from Instagram feed?</p>
+                <h2>{data.acf.title}</h2>
+                <p dangerouslySetInnerHTML={{__html: data.content.rendered}} />
             </header>
             <div className="content">
                 <div className="gallery">

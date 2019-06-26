@@ -28,6 +28,7 @@ export default ({data, events}) => {
                         const tourDetails = (
                             <div key={i} className="tour-details">
                                 <li className={`fal fa-${f}`}>
+                                
                                     <p dangerouslySetInnerHTML={{__html: d}}
                                         className="tour-meta" />
                                     <h3 className="tour-city">{city}</h3>
@@ -35,6 +36,7 @@ export default ({data, events}) => {
                                     <div className="show-listing">VIEW EVENT LISTING</div> 
                                 </li>
                             </div>
+                            
                         )
                         if(eventlisting) {
                             return (

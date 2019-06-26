@@ -17,9 +17,6 @@ import '@fortawesome/fontawesome-pro/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-pro/css/light.min.css'
 import '@fortawesome/fontawesome-pro/css/brands.min.css'
 
-//import '@fortawesome/fontawesome-pro/js/light'
-//import '@fortawesome/fontawesome-pro/js/fontawesome'
-
 const browserHistory = createBrowserHistory()
 
 const RoutedApp = () => {

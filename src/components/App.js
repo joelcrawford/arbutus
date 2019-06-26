@@ -1,6 +1,5 @@
 import React from 'react'
-import '../assets/sass/main.scss'
-import '../assets/sass/arbutus/arbutus.scss'
+import { Store } from '../store'
 
 import Home from './Home'
 import About from './About'
@@ -12,8 +11,10 @@ import Footer from './Footer'
 
 import Loader from './Loader'
 
-import { Store } from '../store'
 import { fetchPages, fetchPosts, fetchVideos } from '../store/actions'
+
+import '../assets/sass/main.scss'
+import '../assets/sass/arbutus/arbutus.scss'
 
 export default() => {
 	
@@ -37,10 +38,11 @@ export default() => {
 			<About data={state.pages.find(p => p.slug === 'about')} />
 			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
 			<Listen data={state.pages.find(p => p.slug === 'videos')} videos={state.videos} />
-			<Gallery anchor="gallery" />	
+			<Gallery data={state.pages.find(p => p.slug === 'gallery')} />	
 			
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
+			
 		</div>
   	)
 }
