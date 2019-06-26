@@ -1,5 +1,9 @@
 import React from 'react'
 import '../assets/sass/arbutus/contact.scss'
+
+import facebookIcon from '@fortawesome/fontawesome-pro/svgs/brands/facebook-f.svg'
+import instagramIcon from '@fortawesome/fontawesome-pro/svgs/brands/instagram.svg'
+
 export default ({data}) => {
     if(!data) { return null }
     return (
@@ -20,19 +24,23 @@ export default ({data}) => {
                         <li>
                             <a 
                                 href={data.acf.facebook}
-                                className="icon brands fa-facebook-f"
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                <span className="label">Facebook</span>
+                                <img 
+                                    className="social-icons" 
+                                    src={facebookIcon} 
+                                    height="40px" alt="facebook" />
                             </a>
                         </li>
                         <li>
                             <a
                                 href={data.acf.instagram}
-                                className="icon brands fa-instagram"
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                <span className="label">Instagram</span>
+                                <img 
+                                className="social-icons" 
+                                src={instagramIcon} 
+                                height="40px" alt="instagram" />
                             </a>
                         </li>
                     </ul>

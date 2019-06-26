@@ -15,7 +15,6 @@ import createHistoryHashObserver from './store/createHistoryHashObserver'
 
 import '@fortawesome/fontawesome-pro/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-pro/css/light.min.css'
-import '@fortawesome/fontawesome-pro/css/brands.min.css'
 
 const browserHistory = createBrowserHistory()
 

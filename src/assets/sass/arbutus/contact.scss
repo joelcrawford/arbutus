@@ -1,5 +1,26 @@
+@import './arbutus-vars.scss';
+
 #wrapper section > .footer {
     grid-area: footer;
     text-align: right;
     padding: 0 10rem;
+}
+
+.social-icons {
+    transition: background-color 0.25s ease-in-out;
+    width: 2.25rem;
+    height: 2.25rem;
+    text-align: center;
+    line-height: 2.25rem;
+    border-radius: 2.25rem;
+    display: inline-block;
+    padding: 0.36em;
+    &:hover {
+        background-color: $c-bg;
+    }
+}
+.icons {
+    a {
+        border-bottom: none;
+    }
 }
