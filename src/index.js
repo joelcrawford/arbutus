@@ -10,21 +10,17 @@ import { StoreProvider } from './store'
 import { createBrowserHistory } from 'history'
 import createHistoryHashObserver from './store/createHistoryHashObserver'
 
-//import '@fortawesome/fontawesome-pro/css/light.min.css'
+// use all.css for brands, solid, reg, light (also includes the fontawesome.min.css)
 //import '@fortawesome/fontawesome-pro/css/all.min.css'
 
 import '@fortawesome/fontawesome-pro/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-pro/css/light.min.css'
+import '@fortawesome/fontawesome-pro/css/brands.min.css'
 
 //import '@fortawesome/fontawesome-pro/js/light'
 //import '@fortawesome/fontawesome-pro/js/fontawesome'
 
 const browserHistory = createBrowserHistory()
-
-
-
-
-//createHistoryHashObserver(browserHistory)
 
 const RoutedApp = () => {
     return (

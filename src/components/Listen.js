@@ -31,23 +31,25 @@ const YouTube = ({video, autoplay, rel, modest}) => {
     )
 }
 
-export default () => {
+export default ({data, videos}) => {
+    if(!data || !videos) { return null }
     return (
-        <section id={data.anchor}>
+        <section id={data.slug}>
             <header>
-                <h2>{data.title}</h2>
+                <h2>{data.acf.title}</h2>
             </header>
             <div className="content">
-                <p dangerouslySetInnerHTML={{__html: data.content}} />
+                <p dangerouslySetInnerHTML={{__html: data.content.rendered}} />
                 
-                    {data.youTubeIDs.map((vid, i) => {
+                    {videos.map((vid, i) => {
+                        console.log(vid)
                         return (
                             <div key={i} className="youtube-container">
-                                <h3>{vid.title}</h3>
-                                <p>{vid.desc}</p>
+                                <h3>{vid.acf.title}</h3>
+                                <p>{vid.acf.description}</p>
                                 <YouTube 
                                     key={i}
-                                    video={vid.id}
+                                    video={vid.acf.videoid}
                                     autoplay="0" rel="0" modest="1"
                                 />
                             </div>

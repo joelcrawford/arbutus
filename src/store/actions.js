@@ -1,7 +1,10 @@
+import * as types from './types'
+
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
 const wpPages = 'pages?_embed'
 const wpPosts = 'posts?_embed'
+const wpVideos = 'videos'
 
 const imgSizes = ['full', 'small', 'medium', 'medium_large']
 
@@ -9,7 +12,7 @@ export const bestFalIcons = [
     'acorn', 'alicorn', 'award', 'crow', 'dagger', 'dice-d10', 'dove', 
     'eye', 'fire', 'gem', 'kiss-wink-heart', 'ice-cream', 'socks', 'spa']
 
-export const formatDateString = `dddd, MMMM Do YYYY, h:mm:ss a`
+export const formatDateString = `dddd, <b>MMMM Do</b> YYYY @ h:mm a`
 
 export const getRandomInt = (min, max) => {
     min = Math.ceil(min);
@@ -29,28 +32,6 @@ const sort = (nestedObj, prop, arr) => {
         }
     })
 }
-
-// const sort = (prop, arr) => {
-//     prop = prop.split('.');
-//     var len = prop.length;
-
-//     arr.sort(function (a, b) {
-//         console.log(a, b, prop)
-//         var i = 0;
-//         while( i < len ) { 
-//             a = a[prop[i]]; b = b[prop[i]]; i++; 
-//         }
-//         console.log(a, b)
-//         if (a < b) {
-//             return -1;
-//         } else if (a > b) {
-//             return 1;
-//         } else {
-//             return 0;
-//         }
-//     })
-//     return arr
-// }
 
 export const setImg = (data, size) => {
     let img = null
@@ -76,7 +57,7 @@ export const fetchPages = async (dispatch) => {
     const dataJSON = await data.json()
     const menu = await setUpMenu(dataJSON)
     return dispatch({
-        type: 'FETCH_PAGES',
+        type: types.FETCH_PAGES,
         pages: dataJSON, 
         menu: menu
     })
@@ -85,9 +66,19 @@ export const fetchPages = async (dispatch) => {
 export const fetchPosts = async (dispatch) => {
     const data = await fetch(`${ip}${wpRest}${wpPosts}`)
     const dataJSON = await data.json()
-    sort('acf', 'eventdate', dataJSON)
+    sort('acf', 'eventdate', dataJSON) // sorts the array in place
     return dispatch({
-        type: 'FETCH_POSTS',
+        type: types.FETCH_POSTS,
         posts: dataJSON
+    })
+}
+
+export const fetchVideos = async (dispatch) => {
+    const data = await fetch(`${ip}${wpRest}${wpVideos}`)
+    const dataJSON = await data.json()
+    sort('acf', 'videoorder', dataJSON) // sorts the array in place
+    return dispatch({
+        type: types.FETCH_VIDEOS,
+        videos: dataJSON
     })
 }

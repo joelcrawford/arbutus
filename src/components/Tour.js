@@ -4,10 +4,6 @@ import { setImg, getRandomInt, bestFalIcons, formatDateString } from '../store/a
 
 import '../assets/sass/arbutus/tour.scss'
 
-const handleClick = (address, title, subtitle, e) => {
-    console.log(address, title, subtitle, e)
-}
-
 export default ({data, events}) => {
 
     if(!data || !events) { return null }
@@ -24,27 +20,31 @@ export default ({data, events}) => {
                 <ul className="feature-icons">
 
                     {events.map((p, i) => {
-                        let f = bestFalIcons[getRandomInt(0, bestFalIcons.length - 1)]
-                        const { 
-                            city, eventdate, address, 
-                            venue, title, subtitle } = p.acf
 
-                        const d = moment(new Date(eventdate)).format(formatDateString)
-                            // solid fa-bolt
-                        return (
+                        let f = bestFalIcons[getRandomInt(0, bestFalIcons.length - 1)]
+                        const { city, eventdate, eventlisting, venue } = p.acf
+                        const d = moment(eventdate).format(formatDateString)
+
+                        const tourDetails = (
                             <div key={i} className="tour-details">
                                 <li className={`fal fa-${f}`}>
-                                    <p className="tour-meta">{d}</p>
+                                    <p dangerouslySetInnerHTML={{__html: d}}
+                                        className="tour-meta" />
                                     <h3 className="tour-city">{city}</h3>
                                     <div className="tour-venue">{venue}</div>
-                                    <div 
-                                        className="show-map" 
-                                        onClick={(e) => handleClick(address, title, subtitle, e)}>
-                                            SHOW MAP
-                                    </div> 
+                                    <div className="show-listing">VIEW EVENT LISTING</div> 
                                 </li>
                             </div>
-                        ) 
+                        )
+                        if(eventlisting) {
+                            return (
+                                <a className="tour-listing" key={i} href={eventlisting} target="_blank" rel="noreferrer noopener">
+                                    {tourDetails}
+                                </a>
+                            ) 
+                        }
+                        return tourDetails
+                        
                     })}
 
                 </ul>

@@ -1,7 +1,10 @@
+@import 'arbutus-vars.scss';
+
 #wrapper section > header h2.img-header {
     margin: 0 0 1em 0;
 }
 
+/* SVG bg color: rgba(123, 65, 61, 0.3) */
 ul.feature-icons li {
     width: 100%;
     &::before {
@@ -20,11 +23,23 @@ ul.feature-icons li:before
     width: 100%;
 }
 
+.tour-listing {
+    border-bottom: none;
+}
+
+.tour-listing > .tour-details {
+    transition: background-color 400ms $transition-pref;
+    &:hover {
+        background-color: $c-non-rgba-bg;
+    }
+}
+
 .tour-details {
-    border: 1px #222 dashed;
+    border: 1px $c-text-headers dashed;
     padding: 1em;
     margin-bottom: 2em;
     width: 100%;
+    position: relative;
 }
 .tour-city {
     font-size: 1em;
@@ -36,25 +51,25 @@ ul.feature-icons li:before
     margin: 0;
     line-height: 0.8em;
     font-family: 'Source Sans Pro';
-    background-color: #ffff00;
+    background-color: $c-highlighter;
     padding: 0.2em 0;
 }
 
-.show-map {
+.show-listing {
+    position: absolute;
+    right: -0.7em;
+    bottom: -1.1em;
     cursor: pointer;
-    padding: 0.2em;
+    padding: 0;
     background-color: none;
     display: inline-block;
-    transition: background-color 300ms;
     margin: 0.7em 0 0 0;
     font-size: 0.8em;
+    font-weight: bold;
     margin: 0;
     line-height: 0.8em;
     font-family: 'Source Sans Pro';
-    &:hover {
-        background-color: #ffff00;
-       
-    }
+    color: #fff;
 }
 .tour-venue {
     font-family: 'Source Sans Pro';
