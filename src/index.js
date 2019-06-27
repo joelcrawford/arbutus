@@ -47,10 +47,7 @@ const RoutedApp = () => {
     )
 }
 
-setTimeout(() => {
-    ReactDOM.render(<RoutedApp />, document.getElementById('root'))
-},2000)
-
+ReactDOM.render(<RoutedApp />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
