@@ -31,12 +31,10 @@ const RoutedApp = () => {
                     <ScrollHandler>
                         <Switch>
                             
-                            <Route exact path="/" render={() => {
-                                return <App  />
-                            }} />
-                            <Route path="/:page" render={() => {
-                                return <App  />
-                            }} />
+                            <Route exact path="/" component={App}  />
+                            
+                            <Route path="/:page" component={App}  />
+                            
 
                         </Switch>
                     </ScrollHandler>

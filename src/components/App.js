@@ -12,14 +12,13 @@ import Footer from './Footer'
 import { fetchPages, fetchPosts, fetchVideos, hideLoader } from '../store/actions'
 
 import '../assets/sass/main.scss'
+import '../assets/sass/arbutus/loader.scss'
 import '../assets/sass/arbutus/arbutus.scss'
 
 const App = () => {
 
 	const { state, dispatch } = React.useContext(Store)
-
-	React.useEffect(() => hideLoader(700))
-
+	
 	React.useEffect(() => {
 		//console.log(state)
 		state.pages.length === 0 && fetchPages(dispatch)
@@ -27,7 +26,13 @@ const App = () => {
 		state.videos.length === 0 && fetchVideos(dispatch)
 	})
 
-	if(!state.pages || !state.posts || !state.videos) { return null }
+	React.useEffect(() => {
+		if(state.pages.length > 0) {
+			hideLoader(1000)
+		} else {
+			console.log('stop execution if we cannot get data')
+		}
+	})
 		
 	return (
 		

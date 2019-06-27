@@ -1,0 +1,53 @@
+@import 'arbutus-vars.scss';
+
+#root.hide-root {
+    opacity: 0;
+}
+
+.loader-container {
+    background: $c-bg;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: 400ms $transition-pref;
+    display: table;
+}
+
+.loader-container--hide {
+    transform: translate(0, -40em);
+}
+
+.loader-text {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    font-family: Helvetica, sans-serif;
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1.5rem 0;
+    text-transform: none;
+    color: #222;
+    &::before {
+        content: "WELCOME";
+        letter-spacing: 1em;
+        white-space: pre;
+        animation: blink 1s linear infinite alternate;
+    }
+}
+
+@keyframes blink {
+  0% {
+    opacity: .2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+}
