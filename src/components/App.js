@@ -14,26 +14,21 @@ import { fetchPages, fetchPosts, fetchVideos } from '../store/actions'
 import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/arbutus.scss'
 
-const loader = document.querySelector('.loader-container')
-
 const hideLoader = () => {
+
+	const loader = document.querySelector('.loader-container')
+	// here we're waiting 1s to unhide content so we don't see page build
 	setTimeout(() => {
 		loader.classList.add('loader-container--hide')
 	}, 1000)
 	
 }
 
-const showLoader = () => loader.classList.remove('loader-container--hide')
-	
 const App = () => {
-
-	
-
 
 	const { state, dispatch } = React.useContext(Store)
 
-	//React.useEffect(() => hideLoader(), [hideLoader])
-	React.useEffect(() => hideLoader());
+	React.useEffect(() => hideLoader())
 
 	React.useEffect(() => {
 		//console.log(state)
