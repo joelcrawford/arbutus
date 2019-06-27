@@ -9,26 +9,16 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import { fetchPages, fetchPosts, fetchVideos } from '../store/actions'
+import { fetchPages, fetchPosts, fetchVideos, hideLoader } from '../store/actions'
 
 import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/arbutus.scss'
-
-const hideLoader = () => {
-
-	const loader = document.querySelector('.loader-container')
-	// here we're waiting 1s to unhide content so we don't see page build
-	setTimeout(() => {
-		loader.classList.add('loader-container--hide')
-	}, 1000)
-	
-}
 
 const App = () => {
 
 	const { state, dispatch } = React.useContext(Store)
 
-	React.useEffect(() => hideLoader())
+	React.useEffect(() => hideLoader(700))
 
 	React.useEffect(() => {
 		//console.log(state)

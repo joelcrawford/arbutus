@@ -33,6 +33,16 @@ const sort = (nestedObj, prop, arr) => {
     })
 }
 
+export const hideLoader = (timer) => {
+
+	const loader = document.querySelector('.loader-container')
+	// here we're waiting 1s to unhide content so we don't see page build
+	setTimeout(() => {
+		loader.classList.add('loader-container--hide')
+	}, timer)
+	
+}
+
 export const setImg = (data, size) => {
     let img = null
     if(!imgSizes.includes(size)) { size = 'medium_large' }
