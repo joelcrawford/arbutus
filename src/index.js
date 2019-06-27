@@ -14,15 +14,8 @@ import ScrollHandler from './components/routing/ScrollHandler'
 import '@fortawesome/fontawesome-pro/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-pro/css/light.min.css'
 
-
-
-// if you want to show the loader when React loads data again
-//const showLoader = () => loader.classList.remove('loader--hide');
-
-
 const RoutedApp = () => {
 
-    
     return (
         <React.StrictMode>
             <StoreProvider>
@@ -30,12 +23,8 @@ const RoutedApp = () => {
                 <Router>
                     <ScrollHandler>
                         <Switch>
-                            
                             <Route exact path="/" component={App}  />
-                            
                             <Route path="/:page" component={App}  />
-                            
-
                         </Switch>
                     </ScrollHandler>
                 </Router>

@@ -6,7 +6,7 @@ const wpPages = 'pages?_embed'
 const wpPosts = 'posts?_embed'
 const wpVideos = 'videos'
 
-const imgSizes = ['full', 'small', 'medium', 'medium_large']
+const wpImgSizes = ['full', 'small', 'medium', 'medium_large']
 
 export const bestFalIcons = [ 
     'acorn', 'alicorn', 'award', 'crow', 'dagger', 'dice-d10', 'dove', 
@@ -33,14 +33,15 @@ const sort = (nestedObj, prop, arr) => {
     })
 }
 
-export const hideLoader = (timer) => {
+export const hideLoader = () => {
 
-    const root = document.getElementById('root')
+    const timer = 800
     const loader = document.querySelector('.loader-container')
 
+    document.getElementById('root').classList.remove('hide-root')
+
     setTimeout(() => {
-        
-        root.classList.remove('hide-root')
+    
         loader.classList.add('loader-container--hide')
         
     }, timer)
@@ -49,7 +50,7 @@ export const hideLoader = (timer) => {
 
 export const setImg = (data, size) => {
     let img = null
-    if(!imgSizes.includes(size)) { size = 'medium_large' }
+    if(!wpImgSizes.includes(size)) { size = 'medium_large' }
     if(!!data._embedded['wp:featuredmedia'][0]) {
         img = data._embedded['wp:featuredmedia'][0].media_details.sizes[size].source_url
     }

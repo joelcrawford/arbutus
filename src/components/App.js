@@ -28,7 +28,7 @@ const App = () => {
 
 	React.useEffect(() => {
 		if(state.pages.length > 0) {
-			hideLoader(1000)
+			hideLoader()
 		} else {
 			console.log('stop execution if we cannot get data')
 		}
@@ -38,15 +38,14 @@ const App = () => {
 		
 		<div id="wrapper">
 			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
-
 			<About data={state.pages.find(p => p.slug === 'about')} />
 			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
 			<Listen data={state.pages.find(p => p.slug === 'videos')} videos={state.videos} />
 			<Gallery data={state.pages.find(p => p.slug === 'gallery')} />	
-			
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
 		</div>
+		
   	)
 }
 

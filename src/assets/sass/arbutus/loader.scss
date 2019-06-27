@@ -3,6 +3,9 @@
 #root.hide-root {
     opacity: 0;
 }
+// #root {
+//   transition: 100ms opacity $transition-pref;
+// }
 
 .loader-container {
     background: $c-bg;
@@ -49,5 +52,17 @@
   }
   100% {
     opacity: .2;
+  }
+}
+
+@media screen and (max-width: $medium) {
+  .loader-text {
+    font-size: 1.4em;
+  }
+}
+
+@media screen and (max-width: $small) {
+  .loader-text {
+    font-size: 1em;
   }
 }
