@@ -17,7 +17,7 @@ const YouTube = ({video, autoplay, rel, modest}) => {
                 //height="100%"
                 src={videoSrc}
                 frameBorder="0"/>
-        </div>
+        </div> 
     )
 }
 
@@ -32,7 +32,6 @@ export default ({data, videos}) => {
                 <p dangerouslySetInnerHTML={{__html: data.content.rendered}} />
                 
                     {videos.map((vid, i) => {
-                        console.log(vid)
                         return (
                             <div key={i} className="youtube-container">
                                 <h3>{vid.acf.title}</h3>

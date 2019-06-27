@@ -9,30 +9,44 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import Loader from './Loader'
-
 import { fetchPages, fetchPosts, fetchVideos } from '../store/actions'
 
 import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/arbutus.scss'
 
-export default() => {
+const loader = document.querySelector('.loader-container')
+
+const hideLoader = () => {
+	setTimeout(() => {
+		loader.classList.add('loader-container--hide')
+	}, 1000)
 	
+}
+
+const showLoader = () => loader.classList.remove('loader-container--hide')
+	
+const App = () => {
+
+	
+
+
 	const { state, dispatch } = React.useContext(Store)
 
+	//React.useEffect(() => hideLoader(), [hideLoader])
+	React.useEffect(() => hideLoader());
+
 	React.useEffect(() => {
-		console.log(state)
+		//console.log(state)
 		state.pages.length === 0 && fetchPages(dispatch)
 		state.posts.length === 0 && fetchPosts(dispatch)
 		state.videos.length === 0 && fetchVideos(dispatch)
 	})
 
-	if(!state.pages || !state.posts || !state.videos) { return <Loader /> }
-
+	if(!state.pages || !state.posts || !state.videos) { return null }
+		
 	return (
 		
 		<div id="wrapper">
-
 			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
 
 			<About data={state.pages.find(p => p.slug === 'about')} />
@@ -42,7 +56,8 @@ export default() => {
 			
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
-			
 		</div>
   	)
 }
+
+export default App

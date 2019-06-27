@@ -1,5 +1,63 @@
 @import 'arbutus-vars.scss';
 
+.loader-container {
+    background: $c-bg;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: 400ms $transition-pref;
+    display: table;
+}
+.loader-container--hide {
+    transform: translate(100em, 0);
+}
+
+.loader-text {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    font-family: Helvetica, sans-serif;
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1.5rem 0;
+    text-transform: none;
+    color: #222;
+    &::before {
+        content: "WELCOME";
+        letter-spacing: 1em;
+    }
+}
+
+.loader {
+    position: absolute;
+    top: calc(50% - 4em);
+    left: calc(50% - 4em);
+    width: 6em;
+    height: 6em;
+    border: 1.1em solid rgba(0, 0, 0, 0.2);
+    border-left: 1.1em solid #000000;
+    border-radius: 50%;
+    animation: load8 1.1s infinite linear;
+    
+  }
+  
+  
+  
+  @keyframes load8 {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
 h1, h2, h3, h4, h5, h6 {
     color: $c-text-headers;
 }

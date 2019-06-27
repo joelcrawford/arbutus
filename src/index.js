@@ -6,9 +6,7 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 
 import { StoreProvider } from './store'
-
-import { createBrowserHistory } from 'history'
-import createHistoryHashObserver from './store/createHistoryHashObserver'
+import ScrollHandler from './components/routing/ScrollHandler'
 
 // use all.css for brands, solid, reg, light (also includes the fontawesome.min.css)
 //import '@fortawesome/fontawesome-pro/css/all.min.css'
@@ -16,24 +14,43 @@ import createHistoryHashObserver from './store/createHistoryHashObserver'
 import '@fortawesome/fontawesome-pro/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-pro/css/light.min.css'
 
-const browserHistory = createBrowserHistory()
+
+
+// if you want to show the loader when React loads data again
+//const showLoader = () => loader.classList.remove('loader--hide');
+
 
 const RoutedApp = () => {
+
+    
     return (
         <React.StrictMode>
             <StoreProvider>
-                <Router history={createHistoryHashObserver(browserHistory)}>
-                    <Switch>
-                        <Route exact path="/" component={App} />
-                        <Route path="/:page" component={App} />
-                    </Switch>
+                
+                <Router>
+                    <ScrollHandler>
+                        <Switch>
+                            
+                            <Route exact path="/" render={() => {
+                                return <App  />
+                            }} />
+                            <Route path="/:page" render={() => {
+                                return <App  />
+                            }} />
+
+                        </Switch>
+                    </ScrollHandler>
                 </Router>
+                
             </StoreProvider>
         </React.StrictMode>
     )
 }
 
-ReactDOM.render(<RoutedApp />, document.getElementById('root'))
+setTimeout(() => {
+    ReactDOM.render(<RoutedApp />, document.getElementById('root'))
+},2000)
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
