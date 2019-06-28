@@ -6,7 +6,7 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 
 import { StoreProvider } from './store'
-import ScrollHandler from './components/routing/ScrollHandler'
+import ScrollHandler from './components/hooks/ScrollHandler'
 
 // use all.css for brands, solid, reg, light (also includes the fontawesome.min.css)
 //import '@fortawesome/fontawesome-pro/css/all.min.css'

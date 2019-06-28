@@ -7,7 +7,8 @@ const initialState = {
     pages: [], 
     posts: [],
     videos: [],
-    menu: []
+    menu: [],
+    error: false
 }
 
 export function StoreProvider(props) {

@@ -22,7 +22,7 @@ export default ({data, menu}) => {
             <header>
                 <h1>{data.acf.title}</h1>
                 <ul className="header-text-grouping">
-                    {menu.map((o, i) => {
+                    {!menu ? null : menu.map((o, i) => {
                         //if(!o.feature) { return null }
                         return (
                             <li key={i}>

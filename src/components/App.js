@@ -1,5 +1,6 @@
 import React from 'react'
 import { Store } from '../store'
+import useEventListener from './hooks/useEventListener'
 
 import Home from './Home'
 import About from './About'
@@ -9,7 +10,7 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import { fetchPages, fetchPosts, fetchVideos, hideLoader } from '../store/actions'
+import { fetchPages, throttled, fetchPosts, fetchVideos, hideLoader, showOffline } from '../store/actions'
 
 import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/loader.scss'
@@ -18,22 +19,37 @@ import '../assets/sass/arbutus/arbutus.scss'
 const App = () => {
 
 	const { state, dispatch } = React.useContext(Store)
+	// State for storing mouse coordinates
+	const [coords, setCoords] = React.useState({ x: 0, y: 0 });
+
+	// Event handler utilizing useCallback ...
+	// ... so that reference never changes.
+	const handler = React.useCallback(({ clientX, clientY }) => {
+		// Update coordinates
+		setCoords({ x: clientX, y: clientY });
+	},
+	  	[setCoords]
+	)
+  
+	// Add event listener using our hook
+	useEventListener('mousemove', handler)
+	
+	console.log(coords.x, coords.y)
 	
 	React.useEffect(() => {
-		//console.log(state)
-		state.pages.length === 0 && fetchPages(dispatch)
-		state.posts.length === 0 && fetchPosts(dispatch)
-		state.videos.length === 0 && fetchVideos(dispatch)
-	})
-
-	React.useEffect(() => {
-		if(state.pages.length > 0) {
-			hideLoader()
-		} else {
-			console.log('stop execution if we cannot get data')
-		}
-	})
 		
+		if(!navigator.onLine) { 
+			showOffline()
+		} else {
+			state.pages.length === 0 && fetchPages(dispatch)
+			state.posts.length === 0 && fetchPosts(dispatch)
+			state.videos.length === 0 && fetchVideos(dispatch)
+			
+			if(state.pages.length > 0) { hideLoader() } 
+		}
+
+	}, [dispatch, state.pages, state.posts, state.videos])
+
 	return (
 		
 		<div id="wrapper">
@@ -45,7 +61,7 @@ const App = () => {
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
 		</div>
-		
+
   	)
 }
 

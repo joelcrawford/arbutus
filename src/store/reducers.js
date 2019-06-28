@@ -7,6 +7,8 @@ export const reducer = (state, action) => {
             return { ...state, posts: action.posts }
         case types.FETCH_VIDEOS:
             return { ...state, videos: action.videos }
+        case types.FETCH_ERROR:
+            return { ...state, error: action.error }
         default:
             return state
     }
