@@ -1,5 +1,5 @@
 import * as types from './types'
-export const reducer = (state, action) => {
+export function reducer(state, action) {
     switch (action.type) {
         case types.FETCH_PAGES:
             return { ...state, pages: action.pages, menu: action.menu }

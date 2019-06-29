@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Store } from '../store'
-import useEventListener from './hooks/useEventListener'
 
 import Home from './Home'
 import About from './About'
@@ -10,7 +9,8 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import { fetchPages, throttled, fetchPosts, fetchVideos, hideLoader, showOffline } from '../store/actions'
+import { fetchWPData, hideLoader, showOffline } from '../store/actions'
+//import useTraceUpdate from './hooks/useTraceUpdate'
 
 import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/loader.scss'
@@ -18,37 +18,26 @@ import '../assets/sass/arbutus/arbutus.scss'
 
 const App = () => {
 
-	const { state, dispatch } = React.useContext(Store)
-	// State for storing mouse coordinates
-	const [coords, setCoords] = React.useState({ x: 0, y: 0 });
+	const { state, dispatch } = useContext(Store)
 
-	// Event handler utilizing useCallback ...
-	// ... so that reference never changes.
-	const handler = React.useCallback(({ clientX, clientY }) => {
-		// Update coordinates
-		setCoords({ x: clientX, y: clientY });
-	},
-	  	[setCoords]
-	)
-  
-	// Add event listener using our hook
-	useEventListener('mousemove', handler)
-	
-	console.log(coords.x, coords.y)
-	
-	React.useEffect(() => {
+	useEffect(() => {
 		
 		if(!navigator.onLine) { 
 			showOffline()
 		} else {
-			state.pages.length === 0 && fetchPages(dispatch)
-			state.posts.length === 0 && fetchPosts(dispatch)
-			state.videos.length === 0 && fetchVideos(dispatch)
 			
-			if(state.pages.length > 0) { hideLoader() } 
+			state.pages.length === 0 && fetchWPData(dispatch, 'pages')
+			state.posts.length === 0 && fetchWPData(dispatch, 'posts')
+			state.videos.length === 0 && fetchWPData(dispatch, 'videos')
+			
 		}
 
-	}, [dispatch, state.pages, state.posts, state.videos])
+	}, [state]) //[state.pages, state.posts, state.videos]
+
+	if(state.pages.length > 0) { hideLoader() } 
+
+	// TRACE UPDATES TO STATE...
+	//console.log(useTraceUpdate(state.pages))
 
 	return (
 		

@@ -5,6 +5,12 @@ const wpPages = 'pages?_embed'
 const wpPosts = 'posts?_embed'
 const wpVideos = 'videos'
 
+const wpType = [
+    { id: 'pages', url: 'pages?_embed' },
+    { id: 'posts', url: 'posts?_embed'},
+    { id: 'videos', url: 'videos' }
+]
+
 const wpImgSizes = ['full', 'small', 'medium', 'medium_large']
 
 export const bestFalIcons = [ 
@@ -104,7 +110,52 @@ export const fetchPages = async (dispatch) => {
     
 
 }
-   
+
+export const fetchWPData = async (dispatch, type) => {
+
+    const t = wpType.find(t => t.id === type)
+    const actionName = `FETCH_${t.id.toUpperCase()}`
+
+    const controller = new AbortController()
+    const signal = controller.signal
+    setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    
+    let menu = []
+    try {
+
+        const request = await fetch(`${ip}${wpRest}${t.url}`, { signal })
+        if(!request.ok) { throw Error(request.statusText) }
+        const data = await request.json()
+        console.log(`FETCH_${t.id.toUpperCase()}`)
+
+        if(t.id === 'pages') {
+            menu = setUpMenu(data)
+            return dispatch({
+                type: types[actionName],
+                [t.id]: data,
+                menu
+            })
+
+        } else {
+            return dispatch({
+                type: types[actionName],
+                [t.id]: data
+            })
+        }
+        
+
+    } catch(error) {
+        
+        return dispatch({
+            type: types.FETCH_ERROR,
+            error: true
+        })
+
+    }
+    
+
+}
+
 export const fetchPosts = async (dispatch) => {
     console.log('calling fetchposts')
     const response = await fetch(`${ip}${wpRest}${wpPosts}`)

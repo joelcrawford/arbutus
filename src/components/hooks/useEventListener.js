@@ -1,9 +1,21 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
+
+// implementing in App
+// // State for storing mouse coordinates
+	// const [coords, setCoords] = React.useState({ x: 0, y: 0 });
+	// // Event handler utilizing useCallback ...
+	// // ... so that reference never changes.
+	// const handler = React.useCallback(({ clientX, clientY }) => {
+	// 	setCoords({ x: clientX, y: clientY }) // Update coordinates
+	// }, [setCoords])
+	// // Add event listener using our hook
+  // useEventListener('mousemove', handler)
+  
 export default(eventName, handler, element = global) => {
 
     function throttled(delay, fn) {
-        let lastCall = 0;
+        let lastCall = 0
         return function (...args) {
           const now = (new Date).getTime();
           if (now - lastCall < delay) {
