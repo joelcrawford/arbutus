@@ -1,15 +1,33 @@
+@import 'arbutus-vars.scss';
+
 .gallery {
+    a {
+        width: 100%;
+        opacity: 1;
+        img {
+            display: block;
+            height: 100% !important;
+            min-height: 100% !important;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+        &:hover {
+            opacity: 0.7;
+            transition: 400ms opacity $transition-pref;
+        }
+    }
     div {
         border-bottom: 0;
         display: block;
-        margin: 1.25rem 0 0 1.25rem;
+        margin: none;
         outline: 0;
         position: relative;
-        width: calc(50% - 1.25rem);
+        //width: calc(50% - 1.25rem);
         img {
             display: block;
-            height: 25vw;
-            min-height: 18rem;
+            // height: 25vw;
+            // min-height: 18rem;
             object-fit: cover;
             object-position: center;
             width: 100%;

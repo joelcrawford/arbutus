@@ -1,4 +1,7 @@
+import { buildUrl } from 'react-instafeed'
 import * as types from './types'
+import { instaOptions } from './config'
+
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
 const wpPages = 'pages?_embed'
@@ -152,28 +155,25 @@ export const fetchWPData = async (dispatch, type) => {
         })
 
     }
-    
-
 }
 
-export const fetchPosts = async (dispatch) => {
-    console.log('calling fetchposts')
-    const response = await fetch(`${ip}${wpRest}${wpPosts}`)
-    const data = await response.json()
-    sort('acf', 'eventdate', data) // sorts the array in place
-    return dispatch({
-        type: types.FETCH_POSTS,
-        posts: data
-    })
-}
-
-export const fetchVideos = async (dispatch) => {
-    console.log('calling fetchvideos')
-    const response = await fetch(`${ip}${wpRest}${wpVideos}`)
-    const data = await response.json()
-    sort('acf', 'videoorder', data) // sorts the array in place
-    return dispatch({
-        type: types.FETCH_VIDEOS,
-        videos: data
-    })
+export const fetchInsta = async (dispatch) => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    try {
+        const request = await fetch(buildUrl(instaOptions), { signal })
+        if(!request.ok) { throw Error(request.statusText) }
+        const data = await request.json()
+        console.log(data)
+        return dispatch({
+            type: types.FETCH_INSTA,
+            insta: data
+        })
+    } catch(error) {
+        return dispatch({
+            type: types.FETCH_ERROR,
+            error: true
+        })
+    }
 }

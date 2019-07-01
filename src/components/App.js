@@ -9,7 +9,7 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import { fetchWPData, hideLoader, showOffline } from '../store/actions'
+import { fetchWPData, hideLoader, showOffline, fetchInsta } from '../store/actions'
 //import useTraceUpdate from './hooks/useTraceUpdate'
 
 import '../assets/sass/main.scss'
@@ -29,6 +29,7 @@ const App = () => {
 			state.pages.length === 0 && fetchWPData(dispatch, 'pages')
 			state.posts.length === 0 && fetchWPData(dispatch, 'posts')
 			state.videos.length === 0 && fetchWPData(dispatch, 'videos')
+			state.insta.length === 0 && fetchInsta(dispatch)
 			
 		}
 
@@ -38,6 +39,7 @@ const App = () => {
 
 	// TRACE UPDATES TO STATE...
 	//console.log(useTraceUpdate(state.pages))
+	console.log(state)
 
 	return (
 		
@@ -46,7 +48,7 @@ const App = () => {
 			<About data={state.pages.find(p => p.slug === 'about')} />
 			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
 			<Listen data={state.pages.find(p => p.slug === 'videos')} videos={state.videos} />
-			<Gallery data={state.pages.find(p => p.slug === 'gallery')} />	
+			<Gallery data={state.pages.find(p => p.slug === 'gallery')} insta={state.insta.data} />	
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
 		</div>

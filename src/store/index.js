@@ -7,6 +7,7 @@ const initialState = {
     pages: [], 
     posts: [],
     videos: [],
+    insta: [],
     menu: [],
     error: false
 }
