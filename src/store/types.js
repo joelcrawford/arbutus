@@ -1,5 +1,7 @@
 export const FETCH_PAGES = 'FETCH_PAGES'
+export const FETCH_MENU = 'FETCH_MENU'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const FETCH_VIDEOS = 'FETCH_VIDEOS'
 export const FETCH_ERROR = 'FETCH_ERROR'
 export const FETCH_INSTA = 'FETCH_INSTA'
+export const REQUESTING_PAGES = 'REQUESTING_PAGES'

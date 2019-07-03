@@ -25,22 +25,31 @@ const App = () => {
 		if(!navigator.onLine) { 
 			showOffline()
 		} else {
+			// create isLoading state to handle when length = 0 but fetch already called
 			
-			state.pages.length === 0 && fetchWPData(dispatch, 'pages')
-			state.posts.length === 0 && fetchWPData(dispatch, 'posts')
-			state.videos.length === 0 && fetchWPData(dispatch, 'videos')
-			state.insta.length === 0 && fetchInsta(dispatch)
+			if(state.pages.length === 0) { fetchWPData(dispatch, 'pages') }
+			if(state.posts.length === 0) { fetchWPData(dispatch, 'posts') }
+			if(state.videos.length === 0) { fetchWPData(dispatch, 'videos') }
+			if(state.insta.length === 0) { fetchInsta(dispatch) }
 			
 		}
 
-	}, [state]) //[state.pages, state.posts, state.videos]
+	}, 
+		// dependency array
+		[ 
+			state.pages.length, 
+			state.posts.length, 
+			state.videos.length, 
+			state.insta.length, 
+			dispatch 
+		]
+	)
 
 	if(state.pages.length > 0) { hideLoader() } 
 
 	// TRACE UPDATES TO STATE...
-	//console.log(useTraceUpdate(state.pages))
-	console.log(state)
-
+	//console.log(useTraceUpdate(state))
+	
 	return (
 		
 		<div id="wrapper">
@@ -48,7 +57,7 @@ const App = () => {
 			<About data={state.pages.find(p => p.slug === 'about')} />
 			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
 			<Listen data={state.pages.find(p => p.slug === 'videos')} videos={state.videos} />
-			<Gallery data={state.pages.find(p => p.slug === 'gallery')} insta={state.insta.data} />	
+			<Gallery data={state.pages.find(p => p.slug === 'gallery')} insta={state.insta} />	
 			<Contact data={state.pages.find(p => p.slug === 'contact')} />
 			<Footer />
 		</div>

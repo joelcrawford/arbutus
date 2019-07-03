@@ -1,7 +1,7 @@
 import React from 'react'
 import '../assets/sass/arbutus/listen.scss'
 
-const YouTube = ({video, autoplay, rel, modest}) => {
+const YouTube = React.memo(({video, autoplay, rel, modest}) => {
     const videoSrc = "https://www.youtube.com/embed/" + 
         video + 
         "?autoplay=" + autoplay + 
@@ -19,9 +19,9 @@ const YouTube = ({video, autoplay, rel, modest}) => {
                 frameBorder="0"/>
         </div> 
     )
-}
+})
 
-export default ({data, videos}) => {
+export default React.memo(({data, videos}) => {
     if(!data || !videos) { return null }
     return (
         <section id={data.slug}>
@@ -47,4 +47,4 @@ export default ({data, videos}) => {
             </div>
         </section>
     )
-}
+})

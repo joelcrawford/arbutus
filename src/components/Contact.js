@@ -4,7 +4,7 @@ import '../assets/sass/arbutus/contact.scss'
 import facebookIcon from '@fortawesome/fontawesome-pro/svgs/brands/facebook-f.svg'
 import instagramIcon from '@fortawesome/fontawesome-pro/svgs/brands/instagram.svg'
 
-export default ({data}) => {
+export default React.memo(({data}) => {
     if(!data) { return null }
     return (
         <section id={data.slug}>
@@ -50,4 +50,4 @@ export default ({data}) => {
             </div>
         </section>
     )
-}
+})

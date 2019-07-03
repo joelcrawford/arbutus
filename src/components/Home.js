@@ -11,8 +11,7 @@ const scrollWithOffset = (el, offset) => {
     }); 
   }
 
-export default ({data, menu}) => {
-
+export default React.memo(({data, menu}) => {
 
     if(!data) { return null }
     const featuredImage = setImg(data, 'medium_large')
@@ -41,4 +40,4 @@ export default ({data, menu}) => {
             </div>
         </section>
     )
-}
+})

@@ -1,7 +1,7 @@
 import React from 'react'
 import { setImg } from '../store/actions'
 
-export default ({data}) => {
+export default React.memo(({data}) => {
     
     if(!data) { return null }
     const featuredImage = setImg(data, 'medium')
@@ -17,4 +17,4 @@ export default ({data}) => {
                 </div>
             </section>
     )
-}
+})

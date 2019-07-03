@@ -4,7 +4,7 @@ import { setImg, getRandomInt, bestFalIcons, formatDateString } from '../store/a
 
 import '../assets/sass/arbutus/tour.scss'
 
-export default ({data, events}) => {
+export default React.memo(({data, events}) => {
 
     if(!data || !events) { return null }
     const featuredImage = setImg(data, 'medium_large')
@@ -54,4 +54,4 @@ export default ({data, events}) => {
             </div>
         </section>
     )
-}
+})

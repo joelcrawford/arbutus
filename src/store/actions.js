@@ -4,9 +4,6 @@ import { instaOptions } from './config'
 
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
-const wpPages = 'pages?_embed'
-const wpPosts = 'posts?_embed'
-const wpVideos = 'videos'
 
 const wpType = [
     { id: 'pages', url: 'pages?_embed' },
@@ -29,7 +26,7 @@ export const getRandomInt = (min, max) => {
 }
 
 // arr is the array of objects, prop is the property to sort by
-const sort = (nestedObj, prop, arr) => {
+export const sort = (nestedObj, prop, arr) => {
     arr.sort((a, b) => {
         if (a[nestedObj][prop] < b[nestedObj][prop]) {
             return -1;
@@ -74,75 +71,49 @@ export const setImg = (data, size) => {
     return img
 }
 
-const setUpMenu = (data) => {
+const setUpMenu = (data, dispatch) => {
     let menu = []
     data.map(m => {
         if(m.acf.featured) {
             menu.push({ slug: m.slug, title: m.acf.title, order: m.acf.pageorder })
         }
     })
-    return menu.sort((a, b) => (a.order > b.order) ? 1 : -1)
+    return dispatch({
+        type: types.FETCH_MENU,
+        payload: { menu: menu.sort((a, b) => (a.order > b.order) ? 1 : -1) }
+    })
 }
 
-export const fetchPages = async (dispatch) => {
-    console.log('calling fetchpages')
-    const controller = new AbortController()
-    const signal = controller.signal
-    setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
-  
-    try {
-
-        const request = await fetch(`${ip}${wpRest}${wpPages}`, { signal })
-        if(!request.ok) { throw Error(request.statusText) }
-        const data = await request.json()
-        const menu = setUpMenu(data)
-        return dispatch({
-            type: types.FETCH_PAGES,
-            pages: data,
-            menu
-        })
-
-    } catch(error) {
-        
-        return dispatch({
-            type: types.FETCH_ERROR,
-            error: true
-        })
-
-    }
-    
-
-}
 
 export const fetchWPData = async (dispatch, type) => {
-
+    console.log('fetching', type)
     const t = wpType.find(t => t.id === type)
+    
     const actionName = `FETCH_${t.id.toUpperCase()}`
 
     const controller = new AbortController()
     const signal = controller.signal
     setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
     
-    let menu = []
     try {
 
         const request = await fetch(`${ip}${wpRest}${t.url}`, { signal })
         if(!request.ok) { throw Error(request.statusText) }
         const data = await request.json()
-        console.log(`FETCH_${t.id.toUpperCase()}`)
-
+        
         if(t.id === 'pages') {
-            menu = setUpMenu(data)
+            
+            setUpMenu(data, dispatch)
             return dispatch({
                 type: types[actionName],
-                [t.id]: data,
-                menu
+                payload: { [t.id]: data }
             })
+            
 
         } else {
             return dispatch({
                 type: types[actionName],
-                [t.id]: data
+                payload: { [t.id]: data }
             })
         }
         
@@ -158,18 +129,21 @@ export const fetchWPData = async (dispatch, type) => {
 }
 
 export const fetchInsta = async (dispatch) => {
+    console.log('fetching instagram')
     const controller = new AbortController()
     const signal = controller.signal
     setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    
     try {
         const request = await fetch(buildUrl(instaOptions), { signal })
         if(!request.ok) { throw Error(request.statusText) }
-        const data = await request.json()
-        console.log(data)
+        const json = await request.json()
+        
         return dispatch({
             type: types.FETCH_INSTA,
-            insta: data
+            insta: json.data
         })
+
     } catch(error) {
         return dispatch({
             type: types.FETCH_ERROR,
