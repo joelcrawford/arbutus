@@ -16,7 +16,7 @@ import '../assets/sass/main.scss'
 import '../assets/sass/arbutus/loader.scss'
 import '../assets/sass/arbutus/arbutus.scss'
 
-const App = () => {
+export default() => {
 
 	const { state, dispatch } = useContext(Store)
 
@@ -64,5 +64,3 @@ const App = () => {
 
   	)
 }
-
-export default App

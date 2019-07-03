@@ -17,6 +17,7 @@ export default React.memo(({data, insta}) => {
                     {insta.map((img, i) => {
                         
                         const alt = !!img.caption ? img.caption.text : null
+                        
                         return (
                             <a key={i} href={img.link} target="_blank" rel="noopener noreferrer">
                                 <div>
@@ -28,6 +29,7 @@ export default React.memo(({data, insta}) => {
                                 </div>
                             </a>
                         )
+                        
                     })}
                 </div>
             </div>

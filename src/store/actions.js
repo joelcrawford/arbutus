@@ -128,20 +128,35 @@ export const fetchWPData = async (dispatch, type) => {
     }
 }
 
+function filterHTTPErrors(notest, tested) {
+    const vr = tested.filter(result => !(result instanceof Error))
+    const m = notest.filter(n => {
+        return vr.some(t => t.url === n.images.standard_resolution.url)
+    })
+    return m
+}
+
 export const fetchInsta = async (dispatch) => {
     console.log('fetching instagram')
+
+    // setting up abort controller to timeout fetch if needed
     const controller = new AbortController()
     const signal = controller.signal
-    setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    //setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
     
     try {
         const request = await fetch(buildUrl(instaOptions), { signal })
         if(!request.ok) { throw Error(request.statusText) }
         const json = await request.json()
+        //console.log(json.data)
+        const r = await Promise.all(
+            json.data.map(d => fetch(d.images.standard_resolution.url).catch((err) => err)))
         
+        const testedItems = filterHTTPErrors(json.data, r)
+
         return dispatch({
             type: types.FETCH_INSTA,
-            insta: json.data
+            insta: testedItems
         })
 
     } catch(error) {
