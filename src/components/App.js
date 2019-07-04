@@ -27,38 +27,43 @@ export default() => {
 		} else {
 			// create isLoading state to handle when length = 0 but fetch already called
 			
-			if(state.pages.length === 0) { fetchWPData(dispatch, 'pages') }
-			if(state.posts.length === 0) { fetchWPData(dispatch, 'posts') }
-			if(state.videos.length === 0) { fetchWPData(dispatch, 'videos') }
-			if(state.insta.length === 0) { fetchInsta(dispatch) }
+			if(state.pages.data.length === 0 && !state.pages.isFetching) { fetchWPData(dispatch, 'pages') }
+			if(state.posts.data.length === 0 && !state.posts.isFetching) { fetchWPData(dispatch, 'posts') }
+			if(state.videos.data.length === 0 && !state.videos.isFetching) { fetchWPData(dispatch, 'videos') }
+			if(state.insta.data.length === 0 && !state.insta.isFetching) { fetchInsta(dispatch) }
 			
 		}
 
 	}, 
 		// dependency array
 		[ 
-			state.pages.length, 
-			state.posts.length, 
-			state.videos.length, 
-			state.insta.length, 
+			state.pages.isFetching,
+			state.posts.isFetching,
+			state.videos.isFetching,
+			state.insta.isFetching,
+			state.pages.data, 
+			state.posts.data, 
+			state.videos.data, 
+			state.insta.data, 
 			dispatch 
 		]
 	)
 
-	if(state.pages.length > 0) { hideLoader() } 
+	//console.log(state)
+	if(state.pages.data.length > 0) { hideLoader() } 
 
 	// TRACE UPDATES TO STATE...
 	//console.log(useTraceUpdate(state))
-	
+	//console.log(state)
 	return (
 		
 		<div id="wrapper">
-			<Home data={state.pages.find(p => p.slug === 'home')} menu={state.menu} />
-			<About data={state.pages.find(p => p.slug === 'about')} />
-			<Tour data={state.pages.find(p => p.slug === 'tour')} events={state.posts} />
-			<Listen data={state.pages.find(p => p.slug === 'videos')} videos={state.videos} />
-			<Gallery data={state.pages.find(p => p.slug === 'gallery')} insta={state.insta} />	
-			<Contact data={state.pages.find(p => p.slug === 'contact')} />
+			<Home data={state.pages.data.find(p => p.slug === 'home')} menu={state.menu} />
+			<About data={state.pages.data.find(p => p.slug === 'about')} />
+			<Tour data={state.pages.data.find(p => p.slug === 'tour')} events={state.posts.data} />
+			<Listen data={state.pages.data.find(p => p.slug === 'videos')} videos={state.videos.data} />
+			<Gallery data={state.pages.data.find(p => p.slug === 'gallery')} insta={state.insta.data} />	
+			<Contact data={state.pages.data.find(p => p.slug === 'contact')} />
 			<Footer />
 		</div>
 

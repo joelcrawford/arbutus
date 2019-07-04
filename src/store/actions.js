@@ -1,6 +1,6 @@
 import { buildUrl } from 'react-instafeed'
 import * as types from './types'
-import { instaOptions } from './config'
+import { instaOptions, instaArbutus } from './config'
 
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
@@ -80,7 +80,7 @@ const setUpMenu = (data, dispatch) => {
     })
     return dispatch({
         type: types.FETCH_MENU,
-        payload: { menu: menu.sort((a, b) => (a.order > b.order) ? 1 : -1) }
+        payload: menu.sort((a, b) => (a.order > b.order) ? 1 : -1)
     })
 }
 
@@ -90,10 +90,13 @@ export const fetchWPData = async (dispatch, type) => {
     const t = wpType.find(t => t.id === type)
     
     const actionName = `FETCH_${t.id.toUpperCase()}`
+    const reqName = `REQUEST_${t.id.toUpperCase()}`
 
     const controller = new AbortController()
     const signal = controller.signal
     setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    
+    dispatch({type: types[reqName]})
     
     try {
 
@@ -106,15 +109,18 @@ export const fetchWPData = async (dispatch, type) => {
             setUpMenu(data, dispatch)
             return dispatch({
                 type: types[actionName],
-                payload: { [t.id]: data }
+                payload: data
+                
             })
             
 
         } else {
+
             return dispatch({
                 type: types[actionName],
-                payload: { [t.id]: data }
+                payload: data
             })
+
         }
         
 
@@ -122,17 +128,22 @@ export const fetchWPData = async (dispatch, type) => {
         
         return dispatch({
             type: types.FETCH_ERROR,
-            error: true
+            isError: true
         })
 
     }
 }
 
-function filterHTTPErrors(notest, tested) {
+async function filterHTTPErrors(notest, tested) {
     const vr = tested.filter(result => !(result instanceof Error))
     const m = notest.filter(n => {
-        return vr.some(t => t.url === n.images.standard_resolution.url)
+        return vr.some(t => t.url === n.images[instaOptions.resolution].url)
     })
+
+    if(vr.length !== m.length) {
+        console.log(vr, m)
+    }
+    
     return m
 }
 
@@ -143,26 +154,27 @@ export const fetchInsta = async (dispatch) => {
     const controller = new AbortController()
     const signal = controller.signal
     //setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
-    
+    dispatch({type: types.REQUEST_INSTA})
     try {
-        const request = await fetch(buildUrl(instaOptions), { signal })
+        const request = await fetch(buildUrl(instaArbutus), { signal })
         if(!request.ok) { throw Error(request.statusText) }
         const json = await request.json()
         //console.log(json.data)
         const r = await Promise.all(
-            json.data.map(d => fetch(d.images.standard_resolution.url).catch((err) => err)))
+            json.data.map(d => fetch(d.images[instaOptions.resolution].url).catch((err) => err)))
         
-        const testedItems = filterHTTPErrors(json.data, r)
+        const testedItems = await filterHTTPErrors(json.data, r)
+
 
         return dispatch({
             type: types.FETCH_INSTA,
-            insta: testedItems
+            payload: testedItems
         })
 
     } catch(error) {
         return dispatch({
             type: types.FETCH_ERROR,
-            error: true
+            isError: true
         })
     }
 }

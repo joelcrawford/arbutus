@@ -13,12 +13,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-    transition: 400ms $transition-pref;
+    transition: 600ms $transition-pref;
     display: table;
 }
 
 .loader-container--hide {
-    transform: translate(0, -40em);
+    transform: translate(0, -100em);
 }
 
 .loader-text {

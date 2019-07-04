@@ -4,6 +4,7 @@ import { instaOptions } from '../store/config'
 import '../assets/sass/arbutus/gallery.scss'
 
 export default React.memo(({data, insta}) => {
+    
     if(!data || !insta) { return null }
     
     return (
