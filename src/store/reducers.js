@@ -39,7 +39,7 @@ export function reducer(state, action) {
 
         case types.FETCH_ERROR:
             return { ...state, error: action.error }
-            
+
         default:
             return state
 

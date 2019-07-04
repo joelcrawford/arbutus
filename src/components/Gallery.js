@@ -1,5 +1,5 @@
 import React from 'react'
-import { instaOptions } from '../store/config'
+import { instaArbutus } from '../store/config'
 
 import '../assets/sass/arbutus/gallery.scss'
 
@@ -24,7 +24,7 @@ export default React.memo(({data, insta}) => {
                                 <div>
                                     <img 
                                         alt={alt} 
-                                        src={img.images[instaOptions.resolution].url}
+                                        src={img.images[instaArbutus.resolution].url}
                                     />
                                     
                                 </div>

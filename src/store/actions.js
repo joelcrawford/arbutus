@@ -1,6 +1,6 @@
 import { buildUrl } from 'react-instafeed'
 import * as types from './types'
-import { instaOptions, instaArbutus } from './config'
+import { instaArbutus } from './config'
 
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
@@ -39,12 +39,12 @@ export const sort = (nestedObj, prop, arr) => {
 }
 
 export const showOffline = () => {
-    //const loaderText = document.querySelector('.loader-text')
+    
     document.querySelector('.loader-text')
         .style.setProperty("--content", "'You are offline'")
     document.querySelector('.loader-text')
         .style.setProperty("--letter-spacing", 0)
-    console.log('show offline')
+    console.log('offline')
 }
 
 export const hideLoader = () => {
@@ -104,25 +104,11 @@ export const fetchWPData = async (dispatch, type) => {
         if(!request.ok) { throw Error(request.statusText) }
         const data = await request.json()
         
-        if(t.id === 'pages') {
-            
-            setUpMenu(data, dispatch)
-            return dispatch({
-                type: types[actionName],
-                payload: data
-                
-            })
-            
-
-        } else {
-
-            return dispatch({
-                type: types[actionName],
-                payload: data
-            })
-
-        }
-        
+        if(t.id === 'pages') { setUpMenu(data, dispatch) }
+        return dispatch({
+            type: types[actionName],
+            payload: data
+        })
 
     } catch(error) {
         
@@ -134,17 +120,15 @@ export const fetchWPData = async (dispatch, type) => {
     }
 }
 
-async function filterHTTPErrors(notest, tested) {
-    const vr = tested.filter(result => !(result instanceof Error))
-    const m = notest.filter(n => {
-        return vr.some(t => t.url === n.images[instaOptions.resolution].url)
+function filterHTTPErrors(noTest, tested) {
+    const filtered = tested.filter(result => !(result instanceof Error))
+    const dataset = noTest.filter(n => {
+        return filtered.some(t => t.url === n.images[instaArbutus.resolution].url)
     })
 
-    if(vr.length !== m.length) {
-        console.log(vr, m)
-    }
+    if(filtered.length !== dataset.length) { console.log(filtered, dataset) }
     
-    return m
+    return dataset
 }
 
 export const fetchInsta = async (dispatch) => {
@@ -153,18 +137,18 @@ export const fetchInsta = async (dispatch) => {
     // setting up abort controller to timeout fetch if needed
     const controller = new AbortController()
     const signal = controller.signal
-    //setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    setTimeout(() => controller.abort(), 5000) // this getting called is like user aborted
+    
     dispatch({type: types.REQUEST_INSTA})
+    
     try {
         const request = await fetch(buildUrl(instaArbutus), { signal })
         if(!request.ok) { throw Error(request.statusText) }
         const json = await request.json()
-        //console.log(json.data)
-        const r = await Promise.all(
-            json.data.map(d => fetch(d.images[instaOptions.resolution].url).catch((err) => err)))
+        const flaggedData = await Promise.all(
+            json.data.map(d => fetch(d.images[instaArbutus.resolution].url).catch((err) => err)))
         
-        const testedItems = await filterHTTPErrors(json.data, r)
-
+        const testedItems = filterHTTPErrors(json.data, flaggedData)
 
         return dispatch({
             type: types.FETCH_INSTA,
