@@ -33,17 +33,7 @@ export default() => {
 
 	}, 
 		// dependency array
-		[ 
-			state.pages.isFetching,
-			state.posts.isFetching,
-			state.videos.isFetching,
-			state.insta.isFetching,
-			state.pages.data, 
-			state.posts.data, 
-			state.videos.data, 
-			state.insta.data, 
-			dispatch 
-		]
+		[ state, dispatch ]
 	)
 
 	//console.log(state)
