@@ -25,13 +25,10 @@ export default() => {
 		if(!navigator.onLine) { 
 			showOffline()
 		} else {
-			// create isLoading state to handle when length = 0 but fetch already called
-			
 			if(state.pages.data.length === 0 && !state.pages.isFetching) { fetchWPData(dispatch, 'pages') }
 			if(state.posts.data.length === 0 && !state.posts.isFetching) { fetchWPData(dispatch, 'posts') }
 			if(state.videos.data.length === 0 && !state.videos.isFetching) { fetchWPData(dispatch, 'videos') }
 			if(state.insta.data.length === 0 && !state.insta.isFetching) { fetchInsta(dispatch) }
-			
 		}
 
 	}, 

@@ -3,7 +3,6 @@ import { reducer } from './reducers'
 
 export const Store = createContext()
 
-
 const initialState = {
     pages: { data: [], isFetching: false }, 
     posts: { data: [], isFetching: false },
@@ -13,11 +12,9 @@ const initialState = {
     isError: false
 }
 
-//console.log(initialState)
-
 export function StoreProvider(props) {
-    const [state, dispatch] = useReducer(reducer, initialState)
     
+    const [state, dispatch] = useReducer(reducer, initialState)
     const value = { state, dispatch }
 
     return (

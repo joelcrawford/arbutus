@@ -5,7 +5,7 @@ import { instaArbutus } from './config'
 const ip = 'http://157.230.145.18/arbutus/'
 const wpRest = 'wp-json/wp/v2/'
 
-const wpType = [
+const wpPostTypes = [
     { id: 'pages', url: 'pages?_embed' },
     { id: 'posts', url: 'posts?_embed'},
     { id: 'videos', url: 'videos' }
@@ -92,7 +92,7 @@ const setUpMenu = (data, dispatch) => {
 
 export const fetchWPData = async (dispatch, type) => {
     console.log('fetching', type)
-    const t = wpType.find(t => t.id === type)
+    const t = wpPostTypes.find(t => t.id === type)
     
     const actionName = `FETCH_${t.id.toUpperCase()}`
     const reqName = `REQUEST_${t.id.toUpperCase()}`

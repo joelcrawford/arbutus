@@ -7,8 +7,9 @@ import '../assets/sass/arbutus/tour.scss'
 export default React.memo(({data, events}) => {
 
     if(!data || !events) { return null }
-    const featuredImage = setImg(data, 'medium_large')
+    
     sortByNested('acf.eventdate', events)
+    const featuredImage = setImg(data, 'medium_large')
     
     return (
         <section id={data.slug}>
@@ -39,6 +40,7 @@ export default React.memo(({data, events}) => {
                             </div>
                             
                         )
+
                         if(eventlisting) {
                             return (
                                 <a className="tour-listing" key={i} href={eventlisting} target="_blank" rel="noreferrer noopener">
@@ -46,12 +48,12 @@ export default React.memo(({data, events}) => {
                                 </a>
                             ) 
                         }
+
                         return tourDetails
                         
                     })}
 
                 </ul>
-                <p></p>
             </div>
         </section>
     )
