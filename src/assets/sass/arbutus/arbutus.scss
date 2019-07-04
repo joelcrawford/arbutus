@@ -32,14 +32,14 @@ input[type="text"], input[type="password"], input[type="email"],
             background-image: none;
             background-color: $c-bg;
             &:before {
-                background: $c-bg-highlight;
+                background: $c-bg-darker;
             }
             h1, h2 {
                 &:before {
-                    background: $c-bg-highlight;
+                    background: $c-bg-darker;
                 }
                 &:after {
-                    background: $c-bg-highlight;
+                    background: $c-bg-darker;
                 }
             }
             p {
@@ -63,7 +63,7 @@ input[type="text"], input[type="password"], input[type="email"],
         &:last-of-type {
             > header {
                 &:after {
-                    background: $c-bg-highlight;
+                    background: $c-bg-darker;
                 }
             }
         }
