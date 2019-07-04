@@ -1,6 +1,6 @@
 import React from 'react'
 import * as moment from 'moment'
-import { setImg, getRandomInt, bestFalIcons, formatDateString } from '../store/actions'
+import { setImg, sortByNested, getRandomInt, bestFalIcons, formatDateString } from '../store/actions'
 
 import '../assets/sass/arbutus/tour.scss'
 
@@ -8,6 +8,7 @@ export default React.memo(({data, events}) => {
 
     if(!data || !events) { return null }
     const featuredImage = setImg(data, 'medium_large')
+    sortByNested('acf.eventdate', events)
     
     return (
         <section id={data.slug}>

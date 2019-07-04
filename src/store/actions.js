@@ -25,17 +25,22 @@ export const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// arr is the array of objects, prop is the property to sort by
-export const sort = (nestedObj, prop, arr) => {
-    arr.sort((a, b) => {
-        if (a[nestedObj][prop] < b[nestedObj][prop]) {
-            return -1;
-        } else if (a[nestedObj][prop] > b[nestedObj][prop]) {
-            return 1;
+export function sortByNested(prop, arr) {
+    prop = prop.split('.')
+    var len = prop.length
+
+    arr.sort(function (a, b) {
+        let i = 0
+        while( i < len ) { a = a[prop[i]]; b = b[prop[i]]; i++; }
+        if (a < b) {
+            return -1
+        } else if (a > b) {
+            return 1
         } else {
-            return 0;
+            return 0
         }
     })
+    return arr
 }
 
 export const showOffline = () => {
