@@ -43,13 +43,21 @@ export function sortByNested(prop, arr) {
     return arr
 }
 
-export const showOffline = () => {
+export const alterWelcomeScreen = (type) => {
+    if(type === 'offline') {
+        document.querySelector('.loader-text')
+            .style.setProperty("--content", "'You are offline'")
+        document.querySelector('.loader-text')
+            .style.setProperty("--letter-spacing", 0)
+        console.log('offline')
+    } else if(type === 'error') {
+        document.querySelector('.loader-text')
+            .style.setProperty("--content", "'Error")
+        document.querySelector('.loader-text')
+            .style.setProperty("--letter-spacing", 0)
+        console.log('error')
+    }
     
-    document.querySelector('.loader-text')
-        .style.setProperty("--content", "'You are offline'")
-    document.querySelector('.loader-text')
-        .style.setProperty("--letter-spacing", 0)
-    console.log('offline')
 }
 
 export const hideLoader = () => {
@@ -91,7 +99,7 @@ const setUpMenu = (data, dispatch) => {
 
 
 export const fetchWPData = async (dispatch, type) => {
-    console.log('fetching', type)
+    
     const t = wpPostTypes.find(t => t.id === type)
     
     const actionName = `FETCH_${t.id.toUpperCase()}`
@@ -106,6 +114,7 @@ export const fetchWPData = async (dispatch, type) => {
     try {
 
         const request = await fetch(`${ip}${wpRest}${t.url}`, { signal })
+        //console.log(request.ok)
         if(!request.ok) { throw Error(request.statusText) }
         const data = await request.json()
         
@@ -116,12 +125,44 @@ export const fetchWPData = async (dispatch, type) => {
         })
 
     } catch(error) {
-        
-        return dispatch({
-            type: types.FETCH_ERROR,
-            isError: true
-        })
+        console.log('error', error)
+        //alterWelcomeScreen('error')
+        //return dispatch({type: types.FETCH_PAGES_ERROR})
+    }
+}
 
+function abortableFetch(request, opts) {
+    const controller = new AbortController()
+    const signal = controller.signal
+    setTimeout(() => controller.abort(), 5000)
+  
+    return {
+        abort: () => controller.abort(),
+        ready: fetch(request, { ...opts, signal })
+    }
+}
+
+export const fetchWPPages = async (dispatch) => {
+    const wpPages = 'pages?_embed'
+    dispatch({type: types.REQUEST_PAGES})
+
+    try {
+
+        const request = await abortableFetch(`${ip}${wpRest}${wpPages}`)
+        const response = await request.ready 
+
+        if(response.status !== 200) { throw new Error(response.status) } 
+        
+        let data = await response.json()
+        setUpMenu(data, dispatch)
+        return dispatch({
+            type: types.FETCH_PAGES,
+            payload: data
+        })
+     
+    } catch(error) {
+        alterWelcomeScreen('error')
+        return dispatch({type: types.FETCH_PAGES_ERROR})
     }
 }
 
@@ -137,8 +178,7 @@ function filterHTTPErrors(noTest, tested) {
 }
 
 export const fetchInsta = async (dispatch) => {
-    console.log('fetching instagram')
-
+    
     // setting up abort controller to timeout fetch if needed
     const controller = new AbortController()
     const signal = controller.signal
@@ -161,9 +201,9 @@ export const fetchInsta = async (dispatch) => {
         })
 
     } catch(error) {
-        return dispatch({
-            type: types.FETCH_ERROR,
-            isError: true
-        })
+        // return dispatch({
+        //     type: types.FETCH_ERROR,
+        //     isError: true
+        // })
     }
 }

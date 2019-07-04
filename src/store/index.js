@@ -4,7 +4,7 @@ import { reducer } from './reducers'
 export const Store = createContext()
 
 const initialState = {
-    pages: { data: [], isFetching: false }, 
+    pages: { data: [], isFetching: false, isError: false }, 
     posts: { data: [], isFetching: false },
     videos: { data: [], isFetching: false },
     insta: { data: [], isFetching: false },

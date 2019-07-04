@@ -5,7 +5,11 @@ export function reducer(state, action) {
         case types.FETCH_PAGES:
             return {
                 ...state, 
-                pages: Object.assign({}, state.pages, { data: action.payload, isFetching: false })
+                pages: 
+                    Object.assign(
+                        {}, state.pages, 
+                        { data: action.payload, isFetching: false, isError: false }
+                    )
             }
 
         case types.FETCH_POSTS:
@@ -37,8 +41,8 @@ export function reducer(state, action) {
         case types.REQUEST_INSTA:
                 return { ...state, insta: Object.assign({}, state.insta, { isFetching: true })}  
 
-        case types.FETCH_ERROR:
-            return { ...state, error: action.error }
+        case types.FETCH_PAGES_ERROR:
+            return { ...state, pages: Object.assign({}, state.pages, { isFetching: false, isError: true }) }
 
         default:
             return state

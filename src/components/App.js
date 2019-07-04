@@ -9,7 +9,7 @@ import Listen from './Listen'
 import Contact from './Contact'
 import Footer from './Footer'
 
-import { fetchWPData, hideLoader, showOffline, fetchInsta } from '../store/actions'
+import { fetchWPData, fetchWPPages, hideLoader, alterWelcomeScreen, fetchInsta } from '../store/actions'
 //import useTraceUpdate from './hooks/useTraceUpdate'
 
 import '../assets/sass/main.scss'
@@ -23,13 +23,15 @@ export default() => {
 	useEffect(() => {
 		
 		if(!navigator.onLine) { 
-			showOffline()
+			alterWelcomeScreen('offline')
 		} else {
-			if(state.pages.data.length === 0 && !state.pages.isFetching) { fetchWPData(dispatch, 'pages') }
+			if(state.pages.data.length === 0 && !state.pages.isFetching && !state.pages.isError) { fetchWPPages(dispatch) }
 			if(state.posts.data.length === 0 && !state.posts.isFetching) { fetchWPData(dispatch, 'posts') }
 			if(state.videos.data.length === 0 && !state.videos.isFetching) { fetchWPData(dispatch, 'videos') }
 			if(state.insta.data.length === 0 && !state.insta.isFetching) { fetchInsta(dispatch) }
 		}
+		
+		
 
 	}, 
 		// dependency array
